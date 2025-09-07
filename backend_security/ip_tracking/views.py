@@ -1,7 +1,7 @@
 # ip_tracking/views.py
 from django.http import HttpResponse
 from django.views.decorators.http import require_GET
-from ratelimit.decorators import ratelimit
+from django_ratelimit.decorators import ratelimit
 
 # Authenticated: 10 requests/min
 # Anonymous: 5 requests/min

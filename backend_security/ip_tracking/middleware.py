@@ -2,7 +2,7 @@
 from django.http import HttpResponseForbidden
 from django.utils.timezone import now
 from django.core.cache import cache
-from ipgeolocation import ipgeolocation
+from ipgeolocation import IPGeolocationApi
 
 from .models import BlockedIP, RequestLog
 
@@ -20,7 +20,7 @@ class IPLogMiddleware:
         # 2️⃣ Get geolocation (cached for 24h)
         geo_data = cache.get(ip)
         if not geo_data:
-            geo_data = ipgeolocation.get_location(ip)
+            geo_data = IPGeolocationApi().get_location(ip)
             cache.set(ip, geo_data, 60 * 60 * 24)  # cache for 24h
 
         # 3️⃣ Log request with geolocation
